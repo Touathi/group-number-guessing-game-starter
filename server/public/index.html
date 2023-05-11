@@ -12,5 +12,40 @@
 </head>
 <body>
     <h1>YOUR GAME HERE!</h1>
+
+    <form id="playerinputs">
+      <input type="text" id="player1Name" placeholder="Player 1 Name">
+      <input type="number"  id="player1Guess" placeholder="Player 1 Guess">
+
+      <input type="text" id="player2Name" placeholder="Player 2 Name">
+      <input type="number"  id="player2Guess" placeholder="Player 2 Guess">
+
+      <button type="submit" id="submitBtn" size="25">Submit</button>
+
+    </form>
+
+    <h2>Results</h2>
+    <table>
+      <thead>
+          <tr>
+            <th>Player One</th>
+            <th>Player One Guess</th>
+            <th>Player One Result</th>
+
+            <th>Player Two</th>
+            <th>Player Two Guess</th>
+            <th>Player Two Results</th>
+          </tr>
+      </thead>
+
+      <tbody id="guessResults">
+
+
+      </tbody>
+    </table>
+
+    <div id="winnerContainer">
+
+    </div>
 </body>
 </html>
