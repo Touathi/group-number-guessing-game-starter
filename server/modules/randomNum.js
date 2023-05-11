@@ -8,6 +8,6 @@ function generateRanNum() {
     return Math.floor(Math.random() * (25 - 1 + 1)) + 1;
 }
 
-console.log(generateRanNum());
+// console.log(generateRanNum());
 
 module.exports = generateRanNum();
