@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser')
+const generateRanNum = require('./modules/randomNum')
 const app = express();
 const PORT = 5000;
 
