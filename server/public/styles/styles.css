@@ -1,21 +1,51 @@
 body {
     margin: 0px;
+    background-color:beige ;
 }
 
 h1 {
     text-align: center;
-    background-color: rgb(0, 255, 251);
+    background-color: rgb(80, 119, 118);
+    padding: 30px;
 }
 
+h2 {
+    text-align: center;
+}
 
-
+h3 {
+    padding: 50px;
+    text-align: center;
+}
 
 table, thead, tr, th{
     border: 2px solid black;
     border-collapse: collapse;
+    padding: 10px;
 }
 
 tbody, tr, td {
     border: 2px solid black;
     border-collapse: collapse;
+    padding: 10px;
+}
+
+#startBtn {
+
+    margin-left: 600px;
+
+}
+
+#playerinputs {
+    margin-left: 300px;
+    padding: 50px
+}
+
+table {
+    margin-right: 30%;
+    margin-left: 30%
+}
+
+form {
+    display: inline-block;
 }

@@ -46,7 +46,7 @@ function renderToDOM(guessArray) {
           `)
       }
     
-      $('#rndNum').text(`${guess.roundNumber}`);
+      $('#rndNum').text(`${roundNumber}`);
     }
 }
 function startGame() {
@@ -73,7 +73,7 @@ function getArray() {
     console.log('Request Failed : ', err);
   })
 }
-let roundNumber = 0;
+let roundNumber = 1;
 function addGuesses(event){
 
     roundNumber ++;
@@ -97,7 +97,7 @@ function addGuesses(event){
           player2Name: player2Name,
           player2Guess: player2Guess,
           player2Result: '',
-          roundNumber: roundNumber
+        
         }
     }).then(function (response){
       console.log('success');
@@ -126,7 +126,7 @@ function restartGame() {
   })
   getArray();
   $('#winnerContainer').empty();
-  roundNumber = 0;
+  roundNumber = 1;
 }
 
 
