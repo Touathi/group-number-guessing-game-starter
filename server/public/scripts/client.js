@@ -59,6 +59,7 @@ function startGame() {
     alert('Error with array!')
     console.log('Request Failed : ', err);
   })
+  $('#submitBtn').prop('disabled', false);
 }
 
 function getArray() {
@@ -85,7 +86,7 @@ function addGuesses(event){
     const player2Name = $("#player2Name").val();
     const player2Guess = ($('#player2Guess').val())/1;
   
-    // console.log(player1Name, player1Guess, player2Name, player2Guess);
+
 
     $.ajax({
         method: 'POST',
@@ -114,6 +115,8 @@ function addGuesses(event){
 }
 
 function restartGame() {
+  roundNumber = 1;
+  $('#rndNum').text(roundNumber)
   $.ajax({
     method: 'get',
     url: '/restart'
@@ -124,9 +127,9 @@ function restartGame() {
     alert('Error with array!')
     console.log('Request Failed : ', err);
   })
-  getArray();
   $('#winnerContainer').empty();
-  roundNumber = 1;
+  $('#submitBtn').prop('disabled', true);
+
 }
 
 

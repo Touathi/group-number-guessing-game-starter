@@ -65,7 +65,7 @@ app.get('/random', function (req, res) {
 
 app.get('/restart', function (req, res) {
   guessArray = [];
-  res.sendStatus(201);
+  res.send(guessArray)
 })
 
 app.listen(PORT, () => {
