@@ -4,7 +4,7 @@ function handleReady() {
   console.log("Page is ready to run")
     getArray()
     $('#playerinputs').on('submit', addGuesses)
-    $('#startBtn').on('click', startGame);
+    $('#startGame').on('submit', startGame);
     $('#winnerContainer').on('click', restartGame);
 
 }
@@ -23,6 +23,9 @@ function renderToDOM(guessArray) {
           <td> ${guess.player2Name}</td>
           <td> ${guess.player2Guess}</td>
           <td> ${guess.player2Result}</td>
+          <td> ${guess.botName}</td>
+          <td> ${guess.botGuess}</td>
+          <td> ${guess.botResult}</td>
       </tr>
     `)
     
@@ -36,9 +39,14 @@ function renderToDOM(guessArray) {
           <p id="p2Win">${guess.player2Name} YOU WIN </p>
           <button id="restartBtn">RESTART</button>
         `)
+      }else if (guess.botResult === 'WINNER!!!'){
+        $('#winnerContainer').append(`
+          <p id="p2Win">${guess.botName} YOU WIN </p>
+          <button id="restartBtn">RESTART</button>
+        `)
       }
       
-      if (guess.player1Result && guess.player2Result === 'YOU LOSE RESTART GAME'){
+      if (guess.player1Result && guess.player2Result && guess.botResult === 'YOU LOSE RESTART GAME'){
         // $('#winnerContainer').empty();
         $('#winnerContainer').append(`
             <p id="youLose">YOU LOSE</p>
@@ -49,10 +57,22 @@ function renderToDOM(guessArray) {
       $('#rndNum').text(`${roundNumber}`);
     }
 }
-function startGame() {
+
+
+
+
+function startGame(event) {
+  event.preventDefault()
+  let minValue = $('#min').val();
+  let maxValue = $('#max').val();
+
   $.ajax({
-    method: 'GET',
-    url: '/random'
+    method: 'POST',
+    url: '/random',
+    data:{
+      min: minValue,
+      max: maxValue,
+    }
   }).then(function (response) {
     console.log('Get random number', response);
   }).catch(function (err) {
@@ -60,6 +80,7 @@ function startGame() {
     console.log('Request Failed : ', err);
   })
   $('#submitBtn').prop('disabled', false);
+  $('#startBtn').prop('disabled', true);
 }
 
 function getArray() {
@@ -85,7 +106,7 @@ function addGuesses(event){
     const player1Guess = ($('#player1Guess').val())/1 ;
     const player2Name = $("#player2Name").val();
     const player2Guess = ($('#player2Guess').val())/1;
-  
+    const botGeorge = 'botGeorge'
 
 
     $.ajax({
@@ -98,6 +119,9 @@ function addGuesses(event){
           player2Name: player2Name,
           player2Guess: player2Guess,
           player2Result: '',
+          botName: botGeorge,
+          botGuess: '',
+          botResult: '',
         
         }
     }).then(function (response){
@@ -129,6 +153,11 @@ function restartGame() {
   })
   $('#winnerContainer').empty();
   $('#submitBtn').prop('disabled', true);
+  
+  $('#startBtn').prop('disabled', false);
+
+  $('#min').val('');
+  $('#max').val('');
 
 }
 

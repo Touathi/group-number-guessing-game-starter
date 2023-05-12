@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser')
-// const generateRanNum = require('./modules/randomNum')
+const generateRanNum = require('./modules/randomNum')
 let guessArray = require('./modules/guessArray');
-// const randomNum = require('./modules/randomNum');
+const botGuess = require('./modules/bot')
 const app = express();
 const PORT = 5000;
 
@@ -20,13 +20,14 @@ app.get('/array', function (req, res) {
 })
 
 let randomNum = 0;
-  
-
+let minGobal = 0;
+let maxGobal = 0;
 
 app.post('/array', function (req, res) {
   // console.log('Post array', req.body);
   let clientGuesses = req.body;
-
+  clientGuesses.botGuess = botGuess( minGobal, maxGobal )
+  console.log(clientGuesses.botGuess);
   
   if (clientGuesses.player1Guess == randomNum){
         clientGuesses.player1Result = 'WINNER!!!';
@@ -42,9 +43,19 @@ app.post('/array', function (req, res) {
   }else if (clientGuesses.player2Guess < randomNum){
         clientGuesses.player2Result = 'Too Low';
   }
+
+  if (clientGuesses.botGuess == randomNum ) {
+    clientGuesses.botResult = 'WINNER!!!';
+}else if ( clientGuesses.botGuess > randomNum){
+   clientGuesses.botResult = 'Too High';
+}else if (clientGuesses.botGuess < randomNum){
+    clientGuesses.botResult = 'Too Low';
+}
+
   if(clientGuesses.player1Guess == randomNum && clientGuesses.player2Guess == randomNum){
     clientGuesses.player1Result = 'YOU LOSE RESTART GAME';
     clientGuesses.player2Result = 'YOU LOSE RESTART GAME';
+    clientGuesses.botResult = 'YOU LOSE RESTART GAME';
   }
 
 
@@ -57,8 +68,16 @@ app.post('/array', function (req, res) {
 
 
 
-app.get('/random', function (req, res) {
-  randomNum = generateRanNum();
+app.post('/random', function (req, res) {
+const minmax = req.body
+//   console.log((req.body.minValue), (req.body.maxValue));
+//   console.log((minmax.min / 1), (minmax.max/ 1)  );
+
+// console.log(minmax);
+minGobal = (minmax.min / 1);
+maxGobal =  (minmax.max / 1);
+
+  randomNum = generateRanNum((minmax.min / 1), (minmax.max / 1));
   console.log(randomNum);
   res.sendStatus(201)
 })
@@ -72,10 +91,3 @@ app.listen(PORT, () => {
   console.log ('Server is running on port', PORT)
 
 })
-
-
-function generateRanNum() {
-  // 1 = Math.ceil(1);
-  // 25 = Math.floor(25);
-  return Math.floor(Math.random() * (25 - 1 + 1)) + 1;
-}

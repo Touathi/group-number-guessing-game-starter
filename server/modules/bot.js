@@ -1,6 +1,5 @@
 
-
-function generateRanNum(min, max) {
+function botgenerateRanNum(min, max) {
 
     console.log(min,max);
 
@@ -12,4 +11,4 @@ function generateRanNum(min, max) {
 
 // console.log(generateRanNum());
 
-module.exports = generateRanNum;
+module.exports = botgenerateRanNum;
