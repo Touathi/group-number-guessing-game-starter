@@ -27,7 +27,7 @@ app.post('/array', function (req, res) {
   // console.log('Post array', req.body);
   let clientGuesses = req.body;
   clientGuesses.botGuess = botGuess( minGobal, maxGobal )
-  console.log(clientGuesses.botGuess);
+  console.log('bot Guesses :',clientGuesses.botGuess);
   
   if (clientGuesses.player1Guess == randomNum){
         clientGuesses.player1Result = 'WINNER!!!';
@@ -59,6 +59,14 @@ app.post('/array', function (req, res) {
   }
 
 
+  // bot GUESS
+  if (clientGuesses.botResult === 'Too Low') {
+    minGobal = clientGuesses.botGuess
+  }
+  
+  if (clientGuesses.botResult === 'Too High') {
+    maxGobal = clientGuesses.botGuess
+  }
   console.log(clientGuesses);
   
   guessArray.push(clientGuesses);
